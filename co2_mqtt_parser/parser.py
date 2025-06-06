@@ -19,7 +19,7 @@ def on_message(client, userdata, msg):
         except ValueError:
             print("Invalid CO₂ value in payload:", payload)
 
-client = mqtt.Client()
+client = mqtt.Client(protocol=mqtt.MQTTv311)
 client.on_connect = on_connect
 client.on_message = on_message
 
