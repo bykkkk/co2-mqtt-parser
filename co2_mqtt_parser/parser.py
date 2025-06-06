@@ -1,11 +1,10 @@
-import paho.mqtt.client as mqtt
+from paho.mqtt.client import Client, MQTTv311, CallbackAPIVersion
 
-BROKER = "localhost"
 TOPIC_SUB = "ew11/recv"
 TOPIC_PUB = "home/sensors/indoor_co2"
 
-def on_connect(client, userdata, flags, rc):
-    print("Connected with result code", rc)
+def on_connect(client, userdata, flags, reasonCode, properties):
+    print("Connected with result code", reasonCode)
     client.subscribe(TOPIC_SUB)
 
 def on_message(client, userdata, msg):
@@ -19,9 +18,13 @@ def on_message(client, userdata, msg):
         except ValueError:
             print("Invalid CO₂ value in payload:", payload)
 
-client = mqtt.Client(callback_api_version=5, protocol=mqtt.MQTTv311)
+client = Client(
+    protocol=MQTTv311,
+    callback_api_version=CallbackAPIVersion.V5
+)
+
 client.on_connect = on_connect
 client.on_message = on_message
 
-client.connect(BROKER, 1883, 60)
+client.connect("localhost", 1883, 60)
 client.loop_forever()
