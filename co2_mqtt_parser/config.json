@@ -1,6 +1,6 @@
 {
   "name": "CO2 MQTT Parser",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "slug": "co2_mqtt_parser",
   "description": "Parses MQTT packets to extract CO2 data and publishes to a sensor topic.",
   "startup": "application",
